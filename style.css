@@ -1,0 +1,246 @@
+:root {
+  color-scheme: dark;
+  --bg: #0f1115;
+  --panel: #171a21;
+  --line: #2d3340;
+  --text: #e7eaf0;
+  --muted: #a2aab8;
+  --input: #0f1218;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.page {
+  width: min(1040px, calc(100% - 24px));
+  margin: 0 auto;
+  padding: 24px 0 40px;
+}
+
+.header {
+  margin-bottom: 18px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 6px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.header p,
+.panel p,
+.status,
+.count {
+  margin: 0;
+  color: var(--muted);
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: start;
+  margin-bottom: 14px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+select,
+input[type="range"],
+input[type="number"],
+input[type="password"],
+button {
+  font: inherit;
+}
+
+select,
+input[type="number"],
+input[type="password"],
+button {
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--input);
+  color: var(--text);
+}
+
+select,
+input[type="number"],
+input[type="password"] {
+  width: 100%;
+  padding: 0 10px;
+}
+
+button {
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: transparent;
+}
+
+.add-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.add-grid .field {
+  margin-bottom: 0;
+}
+
+.add-grid button {
+  align-self: end;
+}
+
+.add-status {
+  margin-top: 10px;
+}
+
+.graph-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.record-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.record-details > div,
+.analysis-grid > div {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.record-details span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.record-details strong {
+  font-size: 1rem;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.chart-wrap {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #10131a;
+  height: clamp(220px, 35vw, 320px);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.zoom-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.zoom-readout {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.analysis-grid span,
+.wanted-level {
+  display: block;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.analysis-grid strong {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.wanted-level {
+  margin: 0;
+  font-weight: 600;
+}
+
+.wanted-level input {
+  width: 100%;
+  height: 40px;
+  margin-top: 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 10px;
+  color: var(--text);
+  background: var(--input);
+}
+
+@media (max-width: 760px) {
+  .panel-head,
+  .zoom-controls,
+  .record-details,
+  .analysis-grid,
+  .add-grid {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .graph-actions {
+    justify-content: flex-start;
+  }
+}

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Level thing</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="page">
+      <header class="header">
+        <h1>Level thing</h1>
+      </header>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Add record</h2>
+          </div>
+        </div>
+
+        <div class="add-grid">
+          <label class="field" for="new-level">
+            Level
+            <input id="new-level" type="number" min="0" step="1" placeholder="Level">
+          </label>
+          <label class="field" for="new-exp">
+            Exp
+            <input id="new-exp" type="number" min="0" step="0.1" placeholder="Exp">
+          </label>
+          <label class="field" for="new-password">
+            Password
+            <input id="new-password" type="password" placeholder="Pass from me">
+          </label>
+          <button type="button" id="save-record">Save</button>
+        </div>
+
+        <p id="add-status" class="status add-status"></p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Graph</h2>
+            <p id="status" class="status">Loading data…</p>
+          </div>
+          <div class="graph-actions">
+            <button type="button" id="toggle-view" class="secondary">Show local data</button>
+            <button type="button" id="reset-zoom" class="secondary">Reset zoom</button>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="chart" aria-label="TDS level over time chart" role="img"></canvas>
+        </div>
+
+        <div class="zoom-controls">
+          <label class="field" for="zoom-start">
+            Zoom start
+            <input id="zoom-start" type="range" min="0" max="0" value="0">
+          </label>
+          <label class="field" for="zoom-end">
+            Zoom end
+            <input id="zoom-end" type="range" min="0" max="0" value="0">
+          </label>
+        </div>
+
+        <div class="zoom-readout">
+          <span id="zoom-start-label">-</span>
+          <span id="zoom-end-label">-</span>
+        </div>
+
+        <div class="analysis-grid">
+          <div>
+            <span>Exp per day</span>
+            <strong id="exp-per-day">-</strong>
+          </div>
+          <div>
+            <span>Exp gained in range</span>
+            <strong id="exp-gained">-</strong>
+          </div>
+          <div>
+            <label class="wanted-level" for="wanted-level">
+              Wanted level
+              <input id="wanted-level" type="number" min="0" step="1" placeholder="Enter level">
+            </label>
+          </div>
+          <div>
+            <span>Estimated date</span>
+            <strong id="estimated-date">-</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Level stuff</h2>
+            <p id="view-note" class="status"></p>
+          </div>
+          <div id="total-records" class="count">0 records</div>
+        </div>
+
+        <label class="field" for="record-select">
+          Select entry
+          <select id="record-select"></select>
+        </label>
+
+        <div class="record-details" aria-live="polite">
+          <div>
+            <span>Timestamp</span>
+            <strong id="detail-timestamp">-</strong>
+          </div>
+          <div>
+            <span>Level</span>
+            <strong id="detail-level">-</strong>
+          </div>
+          <div>
+            <span>Exp</span>
+            <strong id="detail-exp">-</strong>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

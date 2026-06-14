@@ -1,0 +1,73 @@
+name: Add record to tds.json
+
+on:
+  workflow_dispatch:
+    inputs:
+      password:
+        description: Password secret
+        required: true
+        type: string
+      level:
+        description: Level to add
+        required: true
+        type: string
+      exp:
+        description: Exp to add
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update-json:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.TDS_COMMIT_PAT }}
+
+      - name: Validate workflow password
+        env:
+          INPUT_PASSWORD: ${{ inputs.password }}
+          WORKFLOW_PASSWORD: ${{ secrets.TDS_WORKFLOW_PASSWORD }}
+        run: |
+          if [ "$INPUT_PASSWORD" != "$WORKFLOW_PASSWORD" ]; then
+            echo "Invalid workflow password"
+            exit 1
+          fi
+
+      - name: Update tds.json
+        env:
+          INPUT_LEVEL: ${{ inputs.level }}
+          INPUT_EXP: ${{ inputs.exp }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import time
+          from pathlib import Path
+
+          path = Path("tds.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+
+          new_row = {
+              "level": int(float(os.environ["INPUT_LEVEL"])),
+              "exp": float(os.environ["INPUT_EXP"]),
+              "timestamp": time.time(),
+          }
+
+          data.append(new_row)
+          data.sort(key=lambda row: row["timestamp"])
+          path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+          PY
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tds.json
+          git commit -m "Add tds record" || exit 0
+          git push
